@@ -1,0 +1,4 @@
+dotnet tool install --global dotnet-ef
+
+Create migrations (code first)
+dotnet ef migrations add CustomerModel
