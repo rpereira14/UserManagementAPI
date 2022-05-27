@@ -17,7 +17,7 @@ namespace UserManagementApi.Managers
             return await _customerRepository.AddCustomer(customer);
         }
 
-        public async Task<Customer> DeleteCustomer(long id)
+        public async Task<Customer> DeleteCustomer(int id)
         {
             return await _customerRepository.DeleteCustomer(id);
         }
@@ -27,7 +27,7 @@ namespace UserManagementApi.Managers
             return await _customerRepository.GetAll();
         }
 
-        public async Task<Customer> GetCustomer(long id)
+        public async Task<Customer> GetCustomer(int id)
         {
             return await _customerRepository.GetCustomer(id);
         }

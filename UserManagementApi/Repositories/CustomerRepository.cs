@@ -19,7 +19,7 @@ namespace UserManagementApi.Repositories
             return await _context.Customers.ToListAsync();
         }
 
-        public async Task<Customer> DeleteCustomer(long id)
+        public async Task<Customer> DeleteCustomer(int id)
         {
             var customer = await _context.Customers.FindAsync(id);
             if (customer == null)
@@ -34,7 +34,7 @@ namespace UserManagementApi.Repositories
             return await _context.Customers.ToListAsync();
         }
 
-        public async Task<Customer> GetCustomer(long id)
+        public async Task<Customer> GetCustomer(int id)
         {
             var customer = await _context.Customers.FindAsync(id);
             if (customer == null)

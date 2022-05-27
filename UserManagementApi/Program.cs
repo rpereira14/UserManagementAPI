@@ -1,6 +1,7 @@
 using UserManagementApi.Core;
 using UserManagementApi.Repositories;
 using Microsoft.EntityFrameworkCore;
+using UserManagementApi.Managers;
 
 namespace UserManagementApi
 {
@@ -19,12 +20,16 @@ namespace UserManagementApi
             var settings = builder.Configuration.Get<Settings>();
             builder.Services.AddSingleton(s => settings);
 
+            var connectionString = DbPreparation.BuildConnString(builder.Configuration);
+
             builder.Services.AddDbContext<DataContext>(options =>
             {
-                options.UseSqlServer(settings.ConnectionString);
+                options.UseSqlServer(connectionString);
+                //options.UseSqlServer(settings.ConnectionString);
             });
 
             builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+            builder.Services.AddScoped<ICustomerManager, CustomerManager>();
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();

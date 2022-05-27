@@ -44,7 +44,8 @@ namespace UserManagementApi.Controllers
         public async Task<ActionResult<IEnumerable<Customer>>> UpdateCustomer([FromBody] Customer customer)
         {
             var updatedCustomer = await _customerManager.UpdateCustomer(customer);
-
+            if (updatedCustomer == null)
+                return BadRequest("Customer not found.");
             return Ok(updatedCustomer);
         }
 

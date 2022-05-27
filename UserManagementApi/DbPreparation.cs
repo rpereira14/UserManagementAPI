@@ -15,6 +15,17 @@ namespace UserManagementApi
             }
         }
 
+        public static string BuildConnString(ConfigurationManager configuration)
+        {
+            var server = configuration["DbServer"] ?? "ms-sql-server";
+            var port = configuration["DbPort"] ?? "1433";
+            var catalog = configuration["DbCatalog"] ?? "Customers";
+            var user = configuration["DbUser"] ?? "SA";
+            var password = configuration["DbPassword"] ?? "PaSSw0rd2022";
+
+            return $"Server={server},{port}; Initial Catalog={catalog};User ID = {user}; Password={password}";
+        }
+
         public static void FeedDB(DataContext context)
         {
             System.Console.WriteLine("Starting migrations...");
@@ -25,7 +36,6 @@ namespace UserManagementApi
                 context.Customers.AddRange(
                     new Customer
                     {
-                        Id = 1,
                         FirstName = "Rui",
                         Surname = "Pereira",
                         Email = "myemail.pt@here.com",
@@ -33,7 +43,6 @@ namespace UserManagementApi
                     },
                     new Customer
                     {
-                        Id = 2,
                         FirstName = "Rui2",
                         Surname = "Pereira",
                         Email = "myemail.pt@here.com",
@@ -41,7 +50,6 @@ namespace UserManagementApi
                     },
                     new Customer
                     {
-                        Id = 3,
                         FirstName = "Rui3",
                         Surname = "Pereira",
                         Email = "myemail.pt@here.com",
@@ -49,7 +57,6 @@ namespace UserManagementApi
                     },
                     new Customer
                     {
-                        Id = 4,
                         FirstName = "Rui4",
                         Surname = "Pereira",
                         Email = "myemail.pt@here.com",
@@ -57,7 +64,6 @@ namespace UserManagementApi
                     },
                     new Customer
                     {
-                        Id = 5,
                         FirstName = "Rui5",
                         Surname = "Pereira",
                         Email = "myemail.pt@here.com",
