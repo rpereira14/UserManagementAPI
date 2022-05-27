@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>4c020adb-1b64-4805-8d4c-99bee122190e</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <AssemblyName>UserManagementApi</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

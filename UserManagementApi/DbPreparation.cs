@@ -17,7 +17,7 @@ namespace UserManagementApi
 
         public static string BuildConnString(ConfigurationManager configuration)
         {
-            var server = configuration["DbServer"] ?? "ms-sql-server";
+            var server = configuration["DbServer"] ?? "localhost";
             var port = configuration["DbPort"] ?? "1433";
             var catalog = configuration["DbCatalog"] ?? "Customers";
             var user = configuration["DbUser"] ?? "SA";

@@ -36,15 +36,16 @@ namespace UserManagementApi
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
+            //Configure the HTTP request pipeline.
+             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
 
-            DbPreparation.Populate(app);
 
+            DbPreparation.Populate(app);
+            
             app.UseHttpsRedirection();
 
             app.UseAuthorization();

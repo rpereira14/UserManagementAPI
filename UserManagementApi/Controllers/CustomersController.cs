@@ -22,6 +22,8 @@ namespace UserManagementApi.Controllers
         public async Task<ActionResult<IEnumerable<Customer>>> Get()
         {
             var customers = await _customerManager.GetAll();
+            if(customers == null || customers.Count() == 0)
+                return NoContent();
             return Ok(customers);
         }
         [HttpGet("{id}")]

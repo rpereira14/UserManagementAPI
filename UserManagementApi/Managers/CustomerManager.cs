@@ -24,7 +24,14 @@ namespace UserManagementApi.Managers
 
         public async Task<IEnumerable<Customer>> GetAll()
         {
-            return await _customerRepository.GetAll();
+            try
+            {
+                return await _customerRepository.GetAll();
+            }
+            catch(Exception Ex)
+            {
+                throw new Exception("");
+            }
         }
 
         public async Task<Customer> GetCustomer(int id)
