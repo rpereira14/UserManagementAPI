@@ -91,6 +91,7 @@ namespace UserManagementApi.Test.Controllers
             Assert.Equal(mockCustomer, (result.Result as OkObjectResult).Value);
         }
 
+        //Test get customer return 200
         [Fact]
         public async Task GetCustomer_ShouldReturnStatusCode200()
         {
@@ -107,8 +108,9 @@ namespace UserManagementApi.Test.Controllers
             (result.Result as OkObjectResult).StatusCode.Should().Be(200);
         }
 
+        //Test get customer return 400
         [Fact]
-        public async Task GetCustomer_ShouldReturnStatusCode204()
+        public async Task GetCustomer_ShouldReturnStatusCode400()
         {
             //Arrange
             var manager = new Mock<ICustomerManager>();
@@ -125,7 +127,7 @@ namespace UserManagementApi.Test.Controllers
         #endregion
 
         #region AddCustomer
-        //Test get all customers return 200
+        //Test addCustomer return 200
         [Fact]
         public async Task AddCustomer_ShouldReturnStatusCode200()
         {
@@ -144,7 +146,7 @@ namespace UserManagementApi.Test.Controllers
         }
 
 
-        //Test get all customers return same list as mocked
+        //Test addCustomer return same list as mocked
         [Fact]
         public async Task AddCustomer_ShouldReturnCustomerList()
         {
@@ -164,5 +166,64 @@ namespace UserManagementApi.Test.Controllers
         }
 
         #endregion
+
+        #region UpdateCustomer
+        //Test update customer return 200
+        [Fact]
+        public async Task UpdateCustomer_ShouldReturnStatusCode200()
+        {
+            //Arrange
+            var manager = new Mock<ICustomerManager>();
+            var logger = new Mock<ILogger<CustomersController>>();
+            var newCustomer = new Customer { Id = 1, Email = "updatedcust@email.com", FirstName = "updated", Surname = "cust", Password = Guid.NewGuid().ToString() };
+            manager.Setup(_ => _.UpdateCustomer(newCustomer)).ReturnsAsync(CustomerMockData.UpdateCustomer(newCustomer));
+            var controller = new CustomersController(logger.Object, manager.Object);
+
+            //Act
+            var result = await controller.UpdateCustomer(newCustomer);
+
+            //Assert
+            (result.Result as OkObjectResult).StatusCode.Should().Be(200);
+        }
+
+        //Test update customer return 400
+        [Fact]
+        public async Task UpdateCustomer_ShouldReturnStatusCode400()
+        {
+            //Arrange
+            var manager = new Mock<ICustomerManager>();
+            var logger = new Mock<ILogger<CustomersController>>();
+            var newCustomer = new Customer { Id = 0, Email = "updatedcust@email.com", FirstName = "updated", Surname = "cust", Password = Guid.NewGuid().ToString() };
+            manager.Setup(_ => _.UpdateCustomer(newCustomer)).ReturnsAsync(CustomerMockData.UpdateCustomer(newCustomer));
+            var controller = new CustomersController(logger.Object, manager.Object);
+
+            //Act
+            var result = await controller.UpdateCustomer(newCustomer);
+
+            //Assert
+            (result.Result as BadRequestObjectResult).StatusCode.Should().Be(400);
+        }
+
+
+        //Test update customer return same list as mocked
+        [Fact]
+        public async Task UpdateCustomer_ShouldReturnCustomerList()
+        {
+            //Arrange
+            var manager = new Mock<ICustomerManager>();
+            var logger = new Mock<ILogger<CustomersController>>();
+            var newCustomer = new Customer { Id = 2, Email = "updatedcust2@email.com", FirstName = "updated2", Surname = "cust2", Password = Guid.NewGuid().ToString() };
+            manager.Setup(_ => _.UpdateCustomer(newCustomer)).ReturnsAsync(CustomerMockData.UpdateCustomer(newCustomer));
+            var controller = new CustomersController(logger.Object, manager.Object);
+
+            //Act
+            var result = await controller.UpdateCustomer(newCustomer);
+            //Assert
+            (result.Result as OkObjectResult).Value.Should().NotBeNull();
+            Assert.Equal(CustomerMockData.CUSTOMERS, (result.Result as OkObjectResult).Value);
+        }
+
+        #endregion
+
     }
 }
