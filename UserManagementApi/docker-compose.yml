@@ -10,6 +10,8 @@ services:
    - "1433:1433"
  usermanagemant-api:
   build: .
+  environment:
+   DbServer: "ms-sql-server"
   ports:
-   - "5000:80"
+   - "8080:80"
 
