@@ -20,12 +20,11 @@ namespace UserManagementApi
             var settings = builder.Configuration.Get<Settings>();
             builder.Services.AddSingleton(s => settings);
 
-            var connectionString = DbPreparation.BuildConnString(builder.Configuration);
+            var connectionString = DbPreparation.BuildConnString(builder.Configuration, settings);
 
             builder.Services.AddDbContext<DataContext>(options =>
             {
                 options.UseSqlServer(connectionString);
-                //options.UseSqlServer(settings.ConnectionString);
             });
 
             builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
@@ -37,11 +36,11 @@ namespace UserManagementApi
             var app = builder.Build();
 
             //Configure the HTTP request pipeline.
-             if (app.Environment.IsDevelopment())
-            {
+            // if (app.Environment.IsDevelopment())
+            //{
                 app.UseSwagger();
                 app.UseSwaggerUI();
-            }
+            //}
 
 
             DbPreparation.Populate(app);

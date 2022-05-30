@@ -1,6 +1,7 @@
 ﻿using UserManagementApi.Repositories;
 using Microsoft.EntityFrameworkCore;
 using UserManagementApi.Models;
+using UserManagementApi.Core;
 
 namespace UserManagementApi
 {
@@ -15,13 +16,13 @@ namespace UserManagementApi
             }
         }
 
-        public static string BuildConnString(ConfigurationManager configuration)
+        public static string BuildConnString(ConfigurationManager configuration, Settings settings)
         {
-            var server = configuration["DbServer"] ?? "localhost";
-            var port = configuration["DbPort"] ?? "1433";
-            var catalog = configuration["DbCatalog"] ?? "Customers";
-            var user = configuration["DbUser"] ?? "SA";
-            var password = configuration["DbPassword"] ?? "PaSSw0rd2022";
+            var server = configuration["DbServer"] ?? settings.DbServer;
+            var port = configuration["DbPort"] ?? settings.DbPort;
+            var catalog = configuration["DbCatalog"] ?? settings.DbCatalog;
+            var user = configuration["DbUser"] ?? settings.DbUser;
+            var password = configuration["DbPassword"] ?? settings.DbPassword;
 
             return $"Server={server},{port}; Initial Catalog={catalog};User ID = {user}; Password={password}";
         }
